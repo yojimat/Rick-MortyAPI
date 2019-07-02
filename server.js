@@ -12,7 +12,8 @@ const express = require("express")
 	,app = express()
 	,register = require("./controllers/register")
 	,signin = require("./controllers/signin")
-	,auth = require("./controllers/authorization");
+	,auth = require("./controllers/authorization")
+	,{ handleProfileGet } = require("./controllers/profile");
 
 app.use(express.static(path.resolve(__dirname, "./frontend-tlo/build")));
 
@@ -27,4 +28,8 @@ app.get("*", (req, res) => {
     res.sendFile(
       path.resolve(__dirname, "./frontend-tlo/build", "index.html")
     );
+});
+
+app.listen(5000, () => {
+  console.log('Listening on port 5000!');
 });

@@ -1,0 +1,32 @@
+{
+  "name": "tlo-node",
+  "version": "1.0.0",
+  "description": "Teste Fullstack",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "heroku-postbuild": "cd frontend-tlo/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "keywords": [
+    "test",
+    "fullstack",
+    "tlo"
+  ],
+  "author": "Vinicius Neves",
+  "license": "MIT",
+  "cacheDirectories": [
+    "node_modules",
+    "frontendTLO/node_modules"
+  ],
+  "engines": {
+    "node": "8.x"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.18.1",
+    "pg": "^7.11.0",
+    "redis": "^2.8.0"
+  }
+}

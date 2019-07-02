@@ -2,6 +2,7 @@ const express = require("express")
 	,bcrypt = require("bcrypt-nodejs")
 	,knex = require("knex")
 	,path = require("path")
+	,bodyParser = require("body-parser")
 	,db = knex({
 		client: "pg",
   		connection: {
@@ -16,6 +17,8 @@ const express = require("express")
 	,{ handleProfileGet } = require("./controllers/profile");
 
 app.use(express.static(path.resolve(__dirname, "./frontend-tlo/build")));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //User Routes
 app.post("/register", register.registerAuthentication(db, bcrypt));
@@ -31,6 +34,6 @@ app.get("*", (req, res) => {
 });
 
 app.listen(process.env.PORT || 5000, () => {
-	
+
   console.log(`Listening on port${process.env.PORT || 5000}`);
 });

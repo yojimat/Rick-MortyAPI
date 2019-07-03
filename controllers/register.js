@@ -12,9 +12,7 @@ const handleRegister = (db, bcrypt, req, res) => {
     return Promise.reject("Formulário incorreto.");
   }
 
-  return db
-    .transaction(trx => {
-
+  return db.transaction(trx => {
       trx.insert({
 
           email: email,
@@ -29,6 +27,7 @@ const handleRegister = (db, bcrypt, req, res) => {
               
               email: loginEmail[0],
               nome: nome,
+              visitas: 0,
               inscricao: new Date()
             })
             .then(user => user[0]);
@@ -36,7 +35,7 @@ const handleRegister = (db, bcrypt, req, res) => {
         .then(trx.commit)
         .catch(trx.rollback);
     })
-    .catch(error => Promise.reject("Não pode se inscrever."));
+    .catch(error => Promise.reject("Não pode se inscrever"));
 };
 
 const registerAuthentication = (db, bcrypt) => (req, res) => {

@@ -1,10 +1,13 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Merienda', cursive;
-  background: linear-gradient(100deg, red 20% , yellow 100%);
+  font-family: Source Sans Pro, Regular;
+  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FF9800;
 }
 
-button{
-	cursor: pointer;
+#root {
+	height: 100vh;
 }

@@ -1,38 +1,32 @@
 {
-  "name": "apiReconhecimentoFacial",
-  "version": "1.0.0",
+  "name": "frontend-tlo",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.2.1",
-    "clarifai": "^2.8.1",
-    "husky": "^1.3.1",
-    "pretty-quick": "^1.10.0",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
-    "react-particles-js": "^2.3.0",
-    "react-scripts": "^2.1.3",
-    "react-tilt": "^0.1.4",
-    "reactstrap": "^7.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
     "tachyons": "^4.11.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "precommit": "pretty-quick --staged"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "prettier": "1.16.1"
-  },
-  "proxy": "http://localhost:5000"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

@@ -1,19 +1,20 @@
-exports.handleProfileGet = (req, res, db) => {
+exports.handleVisitas = (req, res, db) => {
 
   const { id } = req.params;
 
-  db.select("*")
-    .from("usuarios")
+  db("usuarios")
     .where({ id })
-    .then(user => {
+    .increment("visitas", 1)
+    .returning("visitas")
+    .then(visita => {
 
-      if (user.length) {
+      if (visita.length) {
 
-        return res.json(user[0]);
+        return res.json(visita);
       } else {
 
-        return res.status(400).json("Não encontrado.");
+        return res.status(400).json("Usuario Inexistente");
       }
     })
-    .catch(error => res.status(400).json("Erro ao encontrar usuario."));
+    .catch(error => res.status(400).json("Erro ao encontrar usuario"));
 };

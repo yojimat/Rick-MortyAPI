@@ -14,7 +14,7 @@ const express = require("express")
 	,register = require("./controllers/register")
 	,signin = require("./controllers/signin")
 	,auth = require("./controllers/authorization")
-	,{ handleProfileGet } = require("./controllers/profile");
+	,{ handleVisitas } = require("./controllers/profile");
 
 app.use(express.static(path.resolve(__dirname, "./frontend-tlo/build")));
 app.use(bodyParser.json());
@@ -25,7 +25,7 @@ app.post("/register", register.registerAuthentication(db, bcrypt));
 app.post("/signin", signin.signinAuthentication(db, bcrypt));
 
 app.get("/profile/:id", auth.requireAuth, (req, res) => {
-    profile.handleProfileGet(req, res, db);
+    profile.handleVisitas(req, res, db);
   });
 app.get("*", (req, res) => {
     res.sendFile(
@@ -35,5 +35,5 @@ app.get("*", (req, res) => {
 
 app.listen(process.env.PORT || 5000, () => {
 
-  console.log(`Listening on port${process.env.PORT || 5000}`);
+  console.log(`Listening on port ${process.env.PORT || 5000}`);
 });

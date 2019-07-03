@@ -19,6 +19,7 @@ const App = () => {
       <Navigation 
         isSignedIn={isSignedIn}
         onRouteChange={setRoute}
+        setIsSignedIn={setIsSignedIn}
       />
       {route === "home" ?
         <section className="br3 ba b--black-20 cr mb3 shadow-5 center mw9 bg-black white">

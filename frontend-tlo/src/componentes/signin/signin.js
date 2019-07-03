@@ -1,61 +1,44 @@
 import React, { useState } from 'react';
+import SaveAuthTokeInSession from "../helpers/saveAuthTokeInSession";
+import { fetchSignin, atualizaVisita } from "../../routes/fetch";
 
 const Signin = ({onRouteChange, setIsSignedIn}) => {
 
-	const [credenciasErro, setcredenciasErro] = useState(false)
+	const [credenciaisErro, setcredenciaisErro] = useState(false)
 		,[waitingLogin, setWaitingLogin] = useState(false);
 
-	const atualizaVisita = (userId, token) => {
-
-		fetch(`/profile/${userId}`, {
-            method: 'get',
-            headers: {
-				'Content-Type': 'application/json',
-				'Authorization': token
-            }
-        })
-        .then(resp => resp.json())
-        .then(visita => {
-            console.log(visita)
-           	if(visita) {
-
-            	setcredenciasErro(false);
-            	setIsSignedIn(true);
-            	onRouteChange("home");
-            }
-        })
-        .catch(err => console.error(`error:${err}`));
-	}
-
-	const submitLogin = () => {
+	//testa login
+	const submitLogin = async () => {
 
 		setWaitingLogin(true);
 
-		const email = document.getElementById("email").value,
+		const email = document.getElementById("emailLogin").value,
 			senha = document.getElementById("senhaLogin").value;
-		fetch('/signin', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				email,
-				senha
-			})
-		})
-		.then(response => response.json())
-		.then(data => {
-			if (data.userId && data.sucess === 'true') {
 
-				saveAuthTokeInSession(data.token);
+		const data = await fetchSignin(email, senha);
 
-            	atualizaVisita(data.userId, data.token);
-            } 
-            else {
-            	setcredenciasErro(true);
-            }
-        })
-        .catch(err => console.error(`error:${err}`));
+        if (data.userId && data.sucess === 'true') {
 
-		setWaitingLogin(false);
+			SaveAuthTokeInSession(data.token);
+
+            const visita = await atualizaVisita(data.userId, data.token);
+
+            if(visita) {
+
+	        	setcredenciaisErro(false);
+	        	setIsSignedIn(true);
+	        	onRouteChange("home");
+        	} else {
+
+        		setcredenciaisErro(true);
+        	}
+
+            setWaitingLogin(false);
+        } else {
+        	
+            setcredenciaisErro(true);
+            setWaitingLogin(false);
+        }
 	}
 
 	return (
@@ -69,20 +52,21 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 				<form>
 				<fieldset className="b--transparent">
 					<legend className="f2 fw6 ph0 mh0 mb2">Login</legend>
-					{credenciasErro &&
+					{credenciaisErro &&
 						<p>
-						<span>
-							<i>E-mail ou senha incorretos</i>
-						</span>
+							<span>
+								<i>E-mail ou senha incorretos</i>
+							</span>
 						</p>
 					}
-					<label htmlFor="email">e-mail:</label>
-					<input 
+					<label htmlFor="emailLogin">e-mail:</label>
+					<input
 						type="text" 
-						id="email"
-						name="email"
+						id="emailLogin"
+						name="emailLogin"
 						className="pa1 ba hover-orange
 							br3 w-50 mb3 input-reset"
+						placeholder="e-mail de contato" 
 					/>
 					<br />
 					<label htmlFor="senhaLogin">senha:</label>
@@ -92,6 +76,7 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 						name="senhaLogin"
 						className="pa1 ba hover-orange
 							br3 w-50 input-reset"
+						placeholder="insira uma senha"
 					/>
 					<br />
 					<button 
@@ -106,10 +91,6 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 			}
 		</section>
 	);
-}
-
-const saveAuthTokeInSession = (token) => {
-	window.localStorage.setItem('token', token);
 }
 
 export default Signin;

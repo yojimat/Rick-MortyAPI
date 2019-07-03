@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navigation = ({isSignedIn, onRouteChange}) => {
+const Navigation = ({isSignedIn, onRouteChange, setIsSignedIn}) => {
 	return (
 		<nav className="fr">
 			{isSignedIn ?
@@ -9,6 +9,7 @@ const Navigation = ({isSignedIn, onRouteChange}) => {
 					onClick={() => {
 						window.localStorage.removeItem('token');
 						onRouteChange('signin');
+						setIsSignedIn(false);
 					}}
 				>
 					Sair

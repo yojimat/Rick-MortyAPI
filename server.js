@@ -25,7 +25,7 @@ app.post("/register", register.registerAuthentication(db, bcrypt));
 app.post("/signin", signin.signinAuthentication(db, bcrypt));
 
 app.get("/profile/:id", auth.requireAuth, (req, res) => {
-    profile.handleVisitas(req, res, db);
+    handleVisitas(req, res, db);
   });
 app.get("*", (req, res) => {
     res.sendFile(

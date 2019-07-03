@@ -5,13 +5,34 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 	const [credenciasErro, setcredenciasErro] = useState(false)
 		,[waitingLogin, setWaitingLogin] = useState(false);
 
+	const atualizaVisita = () => {
+
+		fetch(`/profile/${data.userId}`, {
+            method: 'get',
+            headers: {
+				'Content-Type': 'application/json',
+				'Authorization': data.token
+            }
+        })
+        .then(resp => resp.json())
+        .then(visita => {
+            console.log(visita)
+           	if(visita) {
+           		
+            	setcredenciasErro(false);
+            	setIsSignedIn(true);
+            	onRouteChange("home");
+            }
+        })
+        .catch(err => console.error(`error:${err}`));
+	}
+
 	const submitLogin = () => {
 
 		setWaitingLogin(true);
 
 		const email = document.getElementById("email").value,
 			senha = document.getElementById("senhaLogin").value;
-		console.log(email,senha)
 		fetch('/signin', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
@@ -26,23 +47,7 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 
 				saveAuthTokeInSession(data.token);
 
-            	fetch(`/profile/${data.userId}`, {
-              		method: 'get',
-              		headers: {
-			            'Content-Type': 'application/json',
-			            'Authorization': data.token
-              		}
-            	})
-            	.then(resp => resp.json())
-            	.then(visita => {
-            		console.log(visita)
-            		if(visita) {
-            			setcredenciasErro(false);
-            			setIsSignedIn(true);
-            			onRouteChange("home");
-            		}
-            	})
-            	.catch(err => console.error(`error:${err}`));
+            	atualizaVisita(data.userId, data.token);
             } 
             else {
             	setcredenciasErro(true);

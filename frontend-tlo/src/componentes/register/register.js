@@ -17,7 +17,7 @@ const Register = ({onRouteChange, setIsSignedIn}) => {
 
 	const handleSubmit = async (values,{setSubmitting}) => {
 
-		const { nome, email, senha} = values;
+		const { nome, email, senha } = values;
 
 		const data = await fetchRegister(nome,email,senha);
 

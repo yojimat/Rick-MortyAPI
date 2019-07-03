@@ -1,17 +1,17 @@
-exports.fetchSignin = (email, senha) => {
+exports.fetchSignin = (email="", senha="", token ="") => {
 	return fetch('/signin', {
 		method: 'post',
-		headers: {'Content-Type': 'application/json'},
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': token
+		},
 		body: JSON.stringify({
 			email,
 			senha
 		})
 	})
 	.then(response => response.json())
-	.then(data => {
-
-		return data;
-    })
+	.then(data => data)
     .catch(err => console.error(`error:${err}`));
 }
 
@@ -27,9 +27,7 @@ exports.fetchRegister = (nome,email,senha) => {
 		})
 	})
 	.then(response => response.json())
-	.then(data => {
-		return data;
-	})
+	.then(data => data)
 	.catch(err => console.error(`error:${err}`));
 };
 
@@ -43,9 +41,17 @@ exports.atualizaVisita = (userId, token) => {
 	    }
 	    })
 	    .then(resp => resp.json())
-	    .then(visita => {
-	    	console.log(visita)
-           	return visita;
-	    })
+	    .then(visita => visita)
 	    .catch(err => console.error(`error:${err}`));
 };
+
+exports.getListaByPage = page => {
+	
+	return fetch(`/page/${page}`, {
+		method: "get",
+		headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*' }
+	})
+	.then(resp => resp.json())
+	.then(data => data)
+	.catch(err => console.error(`error:${err}`));
+}

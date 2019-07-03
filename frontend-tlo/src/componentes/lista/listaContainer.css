@@ -1,0 +1,21 @@
+.pages {
+	display: inline-flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.totalPages {
+	align-self: flex-end;
+	text-align: left;
+}
+
+.containerListaCard {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    min-height: 40vh;
+}
+
+button:disabled {
+	color: gray;
+}

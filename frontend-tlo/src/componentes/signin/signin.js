@@ -7,7 +7,6 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 	const [credenciaisErro, setcredenciaisErro] = useState(false)
 		,[waitingLogin, setWaitingLogin] = useState(false);
 
-	//testa login
 	const submitLogin = async () => {
 
 		setWaitingLogin(true);
@@ -35,7 +34,7 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 
             setWaitingLogin(false);
         } else {
-        	
+
             setcredenciaisErro(true);
             setWaitingLogin(false);
         }
@@ -50,44 +49,44 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 				</>
 				:
 				<form>
-				<fieldset className="b--transparent">
-					<legend className="f2 fw6 ph0 mh0 mb2">Login</legend>
-					{credenciaisErro &&
-						<p>
-							<span>
-								<i>E-mail ou senha incorretos</i>
-							</span>
-						</p>
-					}
-					<label htmlFor="emailLogin">e-mail:</label>
-					<input
-						type="text" 
-						id="emailLogin"
-						name="emailLogin"
-						className="pa1 ba hover-orange
-							br3 w-50 mb3 input-reset"
-						placeholder="e-mail de contato" 
-					/>
-					<br />
-					<label htmlFor="senhaLogin">senha:</label>
-					<input 
-						type="password" 
-						id="senhaLogin"
-						name="senhaLogin"
-						className="pa1 ba hover-orange
-							br3 w-50 input-reset"
-						placeholder="insira uma senha"
-					/>
-					<br />
-					<button 
-						className="b ph3 pv2 input-reset ba b--white white bg-transparent grow pointer f6 dib br3 mt3" 
-						type="button"
-						onClick={() => submitLogin()}
-					>
-						acessar
-					</button>
-				</fieldset>
-			</form>
+					<fieldset className="b--transparent">
+						<legend className="f2 fw6 ph0 mh0 mb2">Login</legend>
+						{credenciaisErro &&
+							<p>
+								<span>
+									<i>E-mail ou senha incorretos</i>
+								</span>
+							</p>
+						}
+						<label htmlFor="emailLogin">e-mail:</label>
+						<input
+							type="text" 
+							id="emailLogin"
+							name="emailLogin"
+							className="pa1 ba hover-orange
+								br3 w-50 mb3 input-reset"
+							placeholder="e-mail de contato" 
+						/>
+						<br />
+						<label htmlFor="senhaLogin">senha:</label>
+						<input 
+							type="password" 
+							id="senhaLogin"
+							name="senhaLogin"
+							className="pa1 ba hover-orange
+								br3 w-50 input-reset"
+							placeholder="insira uma senha"
+						/>
+						<br />
+						<button 
+							className="b ph3 pv2 input-reset ba b--white white bg-transparent grow pointer f6 dib br3 mt3" 
+							type="button"
+							onClick={() => submitLogin()}
+						>
+							acessar
+						</button>
+					</fieldset>
+				</form>
 			}
 		</section>
 	);

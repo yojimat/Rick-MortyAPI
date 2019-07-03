@@ -1,18 +1,26 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense, useEffect } from 'react';
 import './App.css';
 import Navigation from './componentes/navigation/navigation';
 import Signin from './componentes/signin/signin';
 import Register from './componentes/register/register';
 import SocialSVG from "./componentes/helpers/svgComponent";
 import ErrorBoundary from "./componentes/helpers/errorBoundary";
+import { fetchSignin, atualizaVisita} from "./routes/fetch";
 
 const ListaRickMorty = lazy(() => import('./componentes/lista/listaContainer'));
 
 const App = () => {
 
-  const [route, setRoute] = useState("signin")
-    ,[isSignedIn, setIsSignedIn] = useState(false)
+  const [route, setRoute] = useState("home")//signin
+    ,[isSignedIn, setIsSignedIn] = useState(true)// false
     ,[isLoadingHome, setIsLoadingHome] = useState(false);
+
+  useEffect(() => {
+
+    setIsLoadingHome(true);
+
+    creatingSession(setIsSignedIn, setRoute, setIsLoadingHome);
+  },[]);
 
   return (
     <main className="App">
@@ -33,9 +41,8 @@ const App = () => {
           route === "signin" ?
           (
             isLoadingHome === true ?
-            //Colocar isso dentro de um card
-            <section>
-              <h1>Aguarde um momento, verificando sessão...</h1>
+            <section className="br3 ba b--black-20 cr mb3 shadow-5 center mw6 bg-black white">
+              <h2>Aguarde um momento, verificando sessão...</h2>
               <div className="loader" ></div>
             </section>
             :
@@ -88,4 +95,22 @@ const App = () => {
   );
 }
 
+const creatingSession = async (setIsSignedIn, setRoute, setIsLoadingHome) => {
+
+  const token = window.localStorage.getItem('token')
+      ,data = await fetchSignin("","",token);
+
+    if(data && data.id) {
+
+      const visita = await atualizaVisita(data.id, token);
+
+      if(visita) {
+
+        setIsSignedIn(true);
+        setRoute("home");
+      }
+    }
+
+  setIsLoadingHome(false);
+}
 export default App;

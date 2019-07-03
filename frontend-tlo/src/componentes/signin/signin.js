@@ -5,20 +5,20 @@ const Signin = ({onRouteChange, setIsSignedIn}) => {
 	const [credenciasErro, setcredenciasErro] = useState(false)
 		,[waitingLogin, setWaitingLogin] = useState(false);
 
-	const atualizaVisita = () => {
+	const atualizaVisita = (userId, token) => {
 
-		fetch(`/profile/${data.userId}`, {
+		fetch(`/profile/${userId}`, {
             method: 'get',
             headers: {
 				'Content-Type': 'application/json',
-				'Authorization': data.token
+				'Authorization': token
             }
         })
         .then(resp => resp.json())
         .then(visita => {
             console.log(visita)
            	if(visita) {
-           		
+
             	setcredenciasErro(false);
             	setIsSignedIn(true);
             	onRouteChange("home");

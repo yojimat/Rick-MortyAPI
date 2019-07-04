@@ -54,13 +54,7 @@ exports.getListaByPage = (page, token) => {
 			'Authorization': token
 		}
 	})
-	.then(resp => {
-		console.log(resp)
-		return resp.json()
-	})
-	.then(data => {
-		console.log(data)
-		return data
-	})
+	.then(resp => resp.json())
+	.then(data => data)
 	.catch(err => console.error(`error:${err}`));
 }

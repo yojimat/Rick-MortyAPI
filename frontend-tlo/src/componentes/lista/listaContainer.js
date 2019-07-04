@@ -12,6 +12,20 @@ const ListaContainer = () => {
 		getListaRandom(setListaAtual, setPaginaAtual);
 	},[]);
 
+	const getListabyPage = async next => {
+
+		const token = window.localStorage.getItem('token');
+
+		let adicionar = 1;
+
+		if (!next) { adicionar = -1}
+		
+		const data = await getListaByPage(paginaAtual + adicionar, token);
+
+		setPaginaAtual(paginaAtual + adicionar);
+		setListaAtual(data);
+	};
+
 	return (
 		<>
 			<nav className="pages">
@@ -19,6 +33,7 @@ const ListaContainer = () => {
 				<button 
 					className="b ph3 pv2 input-reset ba b--white white bg-transparent grow pointer f6 dib br3 mt3"
 					disabled={paginaAtual<=1}
+					onClick={() => getListabyPage(false)}
 				>
 					Página Anterior
 				</button>
@@ -28,6 +43,7 @@ const ListaContainer = () => {
 				<button 
 					className="b ph3 pv2 input-reset ba b--white white bg-transparent grow pointer f6 dib br3 mt3"
 					disabled={paginaAtual>=25}
+					onClick={() => getListabyPage(true)}
 				>
 					Proxima página
 				</button>
@@ -51,11 +67,8 @@ export default ListaContainer;
 const getListaRandom = async (setListaAtual, setPaginaAtual) => {
 	const randomPage = Math.floor(Math.random()*(25-1))+1
 		,token = window.localStorage.getItem('token')
-		,data = getListaByPage(randomPage, token);
-	console.log(data)
+		,data = await getListaByPage(randomPage, token);
+
 	setPaginaAtual(randomPage);
 	setListaAtual(data);
 };
-
-
-		

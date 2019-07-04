@@ -6,7 +6,8 @@ import Register from './componentes/register/register';
 import SocialSVG from "./componentes/helpers/svgComponent";
 import ErrorBoundary from "./componentes/helpers/errorBoundary";
 import { fetchSignin, atualizaVisita} from "./routes/fetch";
-import ListaRickMorty from './componentes/lista/listaContainer';
+
+const ListaRickMorty = lazy(() => import('./componentes/lista/listaContainer'));
 
 const App = () => {
 
@@ -30,7 +31,11 @@ const App = () => {
       />
       {route === "home" ?
         <section className="br3 ba b--black-20 cr mb3 shadow-5 center mw9 bg-black white">
+          <ErrorBoundary>
+            <Suspense fallback={<div className="loader" ></div>}>
               <ListaRickMorty />
+            </Suspense>
+          </ErrorBoundary>
         </section>
         :(
           route === "signin" ?

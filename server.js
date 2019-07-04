@@ -35,7 +35,7 @@ app.get("*", (req, res) => {
     );
 });
 app.get("/page/:id", auth.requireAuth, (req, res) => {
-    getListaByPage(req, res, db);
+    getListaByPage(req, res);
   });
 
 app.listen(process.env.PORT || 5000, () => {

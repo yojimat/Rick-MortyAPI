@@ -5,12 +5,11 @@ import { getListaByPage } from "../../routes/fetch";
 
 const ListaContainer = () => {
 	const [listaAtual, setListaAtual] = useState(),
-		[paginaAtual, setPaginaAtual] = useState(1)
-		,[totalPaginas, setTotalPaginas] = useState(0);
+		[paginaAtual, setPaginaAtual] = useState(1);
 
 	useEffect(() => {
 
-		getListaRandom(setListaAtual, setPaginaAtual, setTotalPaginas);
+		getListaRandom(setListaAtual, setPaginaAtual);
 	},[]);
 
 	return (
@@ -49,14 +48,13 @@ const ListaContainer = () => {
 
 export default ListaContainer;
 
-const getListaRandom = async (setListaAtual, setPaginaAtual, setTotalPaginas) => {
+const getListaRandom = async (setListaAtual, setPaginaAtual) => {
 	const randomPage = Math.floor(Math.random()*(25-1))+1
 		,token = window.localStorage.getItem('token')
 		,data = getListaByPage(randomPage, token);
 	console.log(data)
 	setPaginaAtual(randomPage);
-	setListaAtual(data.results);
-	setTotalPaginas(data.pages);
+	setListaAtual(data);
 };
 
 

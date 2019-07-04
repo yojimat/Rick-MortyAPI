@@ -46,7 +46,7 @@ exports.atualizaVisita = (userId, token) => {
 };
 
 exports.getListaByPage = (page, token) => {
-
+	console.log(page, token)
 	return fetch(`/page/${page}`, {
 		method: "get",
 		headers: { 
@@ -55,6 +55,9 @@ exports.getListaByPage = (page, token) => {
 		}
 	})
 	.then(resp => resp.json())
-	.then(data => data)
+	.then(data => {
+		console.log(data)
+		return data
+	})
 	.catch(err => console.error(`error:${err}`));
 }

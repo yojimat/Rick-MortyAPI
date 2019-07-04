@@ -15,7 +15,7 @@ const ListaContainer = () => {
 	return (
 		<>
 			<nav className="pages">
-				<small className="totalPages mr5">total de páginas:{totalPaginas}</small>
+				<small className="totalPages mr5">total de páginas:25</small>
 				<button 
 					className="b ph3 pv2 input-reset ba b--white white bg-transparent grow pointer f6 dib br3 mt3"
 					disabled={paginaAtual<=1}
@@ -27,7 +27,7 @@ const ListaContainer = () => {
 				</span>
 				<button 
 					className="b ph3 pv2 input-reset ba b--white white bg-transparent grow pointer f6 dib br3 mt3"
-					disabled={paginaAtual>=totalPaginas}
+					disabled={paginaAtual>=25}
 				>
 					Proxima página
 				</button>

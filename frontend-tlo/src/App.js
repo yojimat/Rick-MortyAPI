@@ -11,8 +11,8 @@ const ListaRickMorty = lazy(() => import('./componentes/lista/listaContainer'));
 
 const App = () => {
 
-  const [route, setRoute] = useState("home")//signin
-    ,[isSignedIn, setIsSignedIn] = useState(true)// false
+  const [route, setRoute] = useState("signin")
+    ,[isSignedIn, setIsSignedIn] = useState(false)
     ,[isLoadingHome, setIsLoadingHome] = useState(false);
 
   useEffect(() => {

@@ -25,7 +25,10 @@ exports.getListaByPage = async (req, res) => {
 
   const { id } = req.params;
 
-  const data = await pickleRick.getCharacter({ page: id })
+  const data = await pickleRick.getCharacter({ page: id }).then(data => {
+    console.log(data);
+    return data;
+  });
   console.log(data)
 
   if(data) {

@@ -51,7 +51,8 @@ export default ListaContainer;
 
 const getListaRandom = async (setListaAtual, setPaginaAtual, setTotalPaginas) => {
 	const randomPage = Math.floor(Math.random()*(25-1))+1
-		,data = getListaByPage(randomPage);
+		,token = window.localStorage.getItem('token')
+		,data = getListaByPage(randomPage, token);
 	console.log(data)
 	setPaginaAtual(randomPage);
 	setListaAtual(data.results);

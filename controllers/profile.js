@@ -26,14 +26,13 @@ exports.getListaByPage = async (req, res) => {
   const { id } = req.params;
 
   const data = await getCharacter({ page: id })
-    .then(data => data);
-    console.log(data)
+    .then(data => data)
+    .catch(err => console.error(err));;
 
   if(data) {
-    const results = data.results
-    ,pages = data.info.pages;
+    const results = data.results;
 
-    return res.json({results, pages});
+    return res.json(results);
   } else{
 
     return res.status(400).json("Erro ao chamar api");

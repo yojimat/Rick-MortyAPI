@@ -45,11 +45,14 @@ exports.atualizaVisita = (userId, token) => {
 	    .catch(err => console.error(`error:${err}`));
 };
 
-exports.getListaByPage = page => {
-	
+exports.getListaByPage = (page, token) => {
+
 	return fetch(`/page/${page}`, {
 		method: "get",
-		headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*' }
+		headers: { 
+			'Content-Type': 'application/json',
+			'Authorization': token
+		}
 	})
 	.then(resp => resp.json())
 	.then(data => data)

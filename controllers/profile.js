@@ -1,4 +1,4 @@
-const pickleRick = require('rickmortyapi');
+const { getCharacter } = require('rickmortyapi');
 
 exports.handleVisitas = (req, res, db) => {
 
@@ -25,11 +25,7 @@ exports.getListaByPage = async (req, res) => {
 
   const { id } = req.params;
 
-  const data = await pickleRick.getCharacter({ page: id })
-    .then(response => {
-      console.log(response);
-      return response.json();
-    })
+  const data = await getCharacter({ page: id })
     .then(data => data);
     console.log(data)
 

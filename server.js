@@ -19,7 +19,6 @@ const express = require("express")
 
 app.use(express.static(path.resolve(__dirname, "./frontend-tlo/build")));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 //User Routes
@@ -29,14 +28,15 @@ app.post("/signin", signin.signinAuthentication(db, bcrypt));
 app.get("/profile/:id", auth.requireAuth, (req, res) => {
     handleVisitas(req, res, db);
   });
+app.get("/page/:id", auth.requireAuth, (req, res) => {
+    getListaByPage(req, res);
+  });
 app.get("*", (req, res) => {
     res.sendFile(
       path.resolve(__dirname, "./frontend-tlo/build", "index.html")
     );
 });
-app.get("/page/:id", auth.requireAuth, (req, res) => {
-    getListaByPage(req, res);
-  });
+
 
 app.listen(process.env.PORT || 5000, () => {
 

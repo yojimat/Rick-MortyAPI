@@ -27,7 +27,7 @@ exports.getListaByPage = async (req, res) => {
 
   const data = await getCharacter({ page: id })
     .then(data => data)
-    .catch(err => console.error(err));;
+    .catch(err => console.error(err));
 
   if(data) {
     const results = data.results;

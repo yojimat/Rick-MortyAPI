@@ -46,7 +46,7 @@ exports.atualizaVisita = (userId, token) => {
 };
 
 exports.getListaByPage = (page, token) => {
-	console.log(page, token)
+
 	return fetch(`/page/${page}`, {
 		method: "get",
 		headers: { 
@@ -54,7 +54,10 @@ exports.getListaByPage = (page, token) => {
 			'Authorization': token
 		}
 	})
-	.then(resp => resp.json())
+	.then(resp => {
+		console.log(resp)
+		return resp.json()
+	})
 	.then(data => {
 		console.log(data)
 		return data
